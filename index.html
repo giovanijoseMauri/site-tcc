@@ -1,58 +1,442 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Sabor Jovem</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FormandoSabores</title>
+  <meta name="description" content="FormandoSabores — salgadinhos caseiros, práticos e com combos com desconto. Urupês-SP." />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <span>📍 Urupês-SP • Entregas a combinar</span>
+      <span class="muted">⏱️ Atendimento: a combinar</span>
+    </div>
+  </div>
 
-<header>
-<h1>Sabor Jovem</h1>
-<p>Salgadinhos artesanais e bolos de pote</p>
-</header>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#inicio" aria-label="Ir para o início">
+        <div class="brand__logo">FS</div>
+        <div class="brand__text">
+          <strong>FormandoSabores</strong>
+          <span class="muted">Sabor caseiro. Prático. Do jeitinho que você gosta.</span>
+        </div>
+      </a>
 
-<nav>
-<a href="#home">Início</a>
-<a href="#sobre">Sobre</a>
-<a href="#produtos">Produtos</a>
-<a href="#contato">Contato</a>
-</nav>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#categorias">Categorias</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#combos">Combos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato" class="btn btn--small">Contato</a>
+      </nav>
+    </div>
+  </header>
 
-<section id="home" class="box">
-<h2>Bem-vindo</h2>
-<p>Somos uma empresa criada por estudantes do ensino médio técnico, focada em levar sabor, qualidade e preço justo.</p>
-</section>
+  <!-- Hero -->
+  <main id="inicio">
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="pill">✨ Projeto de TCC • Ensino Médio Técnico</p>
+          <h1>Salgadinhos caseiros e combos com desconto em Urupês-SP</h1>
+          <p class="hero__subtitle">
+            Começamos com <strong>enroladinhos de salsicha</strong> e <strong>refrigerantes</strong>.
+            Em breve: <strong>bolos de pote</strong>.
+          </p>
 
-<section id="sobre" class="box">
-<h2>Sobre Nós</h2>
-<p>Nosso projeto nasceu como trabalho de TCC, com o objetivo de criar uma empresa real. Iniciamos com salgadinhos e futuramente expandiremos para bolos de pote.</p>
-</section>
+          <div class="hero__actions">
+            <button class="btn" onclick="openOrder('Olá! Quero fazer um pedido no FormandoSabores 😊')">
+              Pedir agora
+            </button>
+            <a class="btn btn--ghost" href="#produtos">Ver produtos</a>
+          </div>
 
-<section id="produtos" class="box">
-<h2>Nossos Produtos</h2>
+          <div class="trust">
+            <div class="trust__item">
+              <span class="trust__icon">🏠</span>
+              <div>
+                <strong>Caseiro</strong>
+                <div class="muted">feito com cuidado</div>
+              </div>
+            </div>
+            <div class="trust__item">
+              <span class="trust__icon">⚡</span>
+              <div>
+                <strong>Prático</strong>
+                <div class="muted">rápido e fácil</div>
+              </div>
+            </div>
+            <div class="trust__item">
+              <span class="trust__icon">🤝</span>
+              <div>
+                <strong>Entrega a combinar</strong>
+                <div class="muted">flexível pra você</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-<ul>
-<li>Coxinha</li>
-<li>Risoles</li>
-<li>Enroladinho</li>
-<li>Bolo de pote (em breve)</li>
-</ul>
+        <div class="hero__card" aria-label="Destaque de promoções">
+          <div class="hero__card__header">
+            <h2>Combos com desconto</h2>
+            <p class="muted">Refri + salgado com valor melhor 💙</p>
+          </div>
 
-</section>
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="mini__title">Combo 1</div>
+              <div class="mini__desc">Enroladinho + Refri</div>
+              <div class="mini__cta">
+                <button class="btn btn--small" onclick="openOrder('Quero o Combo 1: Enroladinho + Refri.')">Pedir</button>
+              </div>
+            </div>
 
-<section id="contato" class="box">
-<h2>Contato</h2>
+            <div class="mini">
+              <div class="mini__title">Combo 2</div>
+              <div class="mini__desc">2 Enroladinhos + Refri</div>
+              <div class="mini__cta">
+                <button class="btn btn--small" onclick="openOrder('Quero o Combo 2: 2 Enroladinhos + Refri.')">Pedir</button>
+              </div>
+            </div>
 
-<p>WhatsApp: (00) 00000-0000</p>
-<p>Instagram: @saborjovem</p>
+            <div class="mini">
+              <div class="mini__title">Combo 3</div>
+              <div class="mini__desc">3 Enroladinhos + Refri</div>
+              <div class="mini__cta">
+                <button class="btn btn--small" onclick="openOrder('Quero o Combo 3: 3 Enroladinhos + Refri.')">Pedir</button>
+              </div>
+            </div>
 
-</section>
+            <div class="mini mini--note">
+              <div class="mini__desc">
+                💡 Vocês podem definir preços depois. Por enquanto, a gente deixa “sob consulta”.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<footer>
-<p>Projeto TCC - Ensino Médio Técnico © 2026</p>
-</footer>
+    <!-- Highlights -->
+    <section class="highlights">
+      <div class="container highlights__grid">
+        <div class="highlight">
+          <div class="highlight__icon">🏷️</div>
+          <div>
+            <h3>Combos com desconto</h3>
+            <p class="muted">Mais vantajoso do que comprar separado.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <div class="highlight__icon">🕒</div>
+          <div>
+            <h3>Entrega a combinar</h3>
+            <p class="muted">A gente combina horário e local com você.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <div class="highlight__icon">🔒</div>
+          <div>
+            <h3>Pedido simples</h3>
+            <p class="muted">Um clique e você já manda a mensagem.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <div class="highlight__icon">💙</div>
+          <div>
+            <h3>Feito com carinho</h3>
+            <p class="muted">Projeto real, com atendimento humano.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Categories -->
+    <section id="categorias" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>Categorias</h2>
+          <p class="muted">Começo enxuto e bem feito — depois a gente expande.</p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="card__badge">Agora</div>
+            <h3>Salgados</h3>
+            <p class="muted">Enroladinhos de salsicha.</p>
+            <a href="#produtos" class="card__link">Ver produtos →</a>
+          </div>
+
+          <div class="card">
+            <div class="card__badge">Agora</div>
+            <h3>Bebidas</h3>
+            <p class="muted">Refrigerantes gelados.</p>
+            <a href="#produtos" class="card__link">Ver opções →</a>
+          </div>
+
+          <div class="card">
+            <div class="card__badge">Destaque</div>
+            <h3>Combos</h3>
+            <p class="muted">Refri + salgado com desconto.</p>
+            <a href="#combos" class="card__link">Ver combos →</a>
+          </div>
+
+          <div class="card card--soft">
+            <div class="card__badge">Em breve</div>
+            <h3>Bolos de pote</h3>
+            <p class="muted">Entrando no cardápio nas próximas etapas do TCC.</p>
+            <a href="#sobre" class="card__link">Saiba mais →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="produtos" class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <h2>Vitrine de produtos</h2>
+          <p class="muted">Preços podem ficar “sob consulta” enquanto vocês definem.</p>
+        </div>
+
+        <div class="products">
+          <article class="product">
+            <div class="product__img" aria-hidden="true">
+              <span>🥐</span>
+            </div>
+            <div class="product__body">
+              <h3>Enroladinho de salsicha</h3>
+              <p class="muted">Caseiro, prático e perfeito para um lanche rápido.</p>
+              <div class="product__footer">
+                <span class="price">Sob consulta</span>
+                <button class="btn btn--small" onclick="openOrder('Quero Enroladinho de salsicha. Quantidade: __')">Pedir</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="product__img" aria-hidden="true">
+              <span>🥤</span>
+            </div>
+            <div class="product__body">
+              <h3>Refrigerantes</h3>
+              <p class="muted">Opções variadas (lata/garrafa) — confirme no pedido.</p>
+              <div class="product__footer">
+                <span class="price">Sob consulta</span>
+                <button class="btn btn--small" onclick="openOrder('Quero Refrigerante. Tipo/tamanho: __')">Pedir</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="product__img" aria-hidden="true">
+              <span>🍱</span>
+            </div>
+            <div class="product__body">
+              <h3>Combo Refri + Salgado</h3>
+              <p class="muted">Mais barato do que comprar separado.</p>
+              <div class="product__footer">
+                <span class="price">Com desconto</span>
+                <button class="btn btn--small" onclick="openOrder('Quero Combo Refri + Salgado. Combo: 1/2/3')">Pedir</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product product--soon">
+            <div class="product__img" aria-hidden="true">
+              <span>🍰</span>
+            </div>
+            <div class="product__body">
+              <h3>Bolos de pote (em breve)</h3>
+              <p class="muted">Próxima etapa do projeto — sabores e preços serão definidos.</p>
+              <div class="product__footer">
+                <span class="price">Em desenvolvimento</span>
+                <button class="btn btn--small btn--ghost" onclick="openOrder('Quero entrar na lista de avisos dos Bolos de Pote 😊')">Quero aviso</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Combos -->
+    <section id="combos" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>Combos com desconto</h2>
+          <p class="muted">Escolha seu combo e mande a mensagem pronta.</p>
+        </div>
+
+        <div class="combo-grid">
+          <div class="combo">
+            <h3>Combo 1</h3>
+            <p class="muted">1 Enroladinho + 1 Refrigerante</p>
+            <div class="combo__footer">
+              <span class="price">Desconto</span>
+              <button class="btn btn--small" onclick="openOrder('Combo 1: 1 Enroladinho + 1 Refri. Entrega a combinar.')">Pedir</button>
+            </div>
+          </div>
+
+          <div class="combo">
+            <h3>Combo 2</h3>
+            <p class="muted">2 Enroladinhos + 1 Refrigerante</p>
+            <div class="combo__footer">
+              <span class="price">Desconto maior</span>
+              <button class="btn btn--small" onclick="openOrder('Combo 2: 2 Enroladinhos + 1 Refri. Entrega a combinar.')">Pedir</button>
+            </div>
+          </div>
+
+          <div class="combo">
+            <h3>Combo 3</h3>
+            <p class="muted">3 Enroladinhos + 1 Refrigerante</p>
+            <div class="combo__footer">
+              <span class="price">Melhor custo</span>
+              <button class="btn btn--small" onclick="openOrder('Combo 3: 3 Enroladinhos + 1 Refri. Entrega a combinar.')">Pedir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="sobre" class="section section--alt">
+      <div class="container">
+        <div class="section__head">
+          <h2>Sobre o FormandoSabores</h2>
+          <p class="muted">Projeto de TCC com proposta de virar negócio real.</p>
+        </div>
+
+        <div class="about">
+          <div class="about__box">
+            <h3>Nossa ideia</h3>
+            <p>
+              O FormandoSabores nasce como um projeto escolar, mas com mentalidade de empresa:
+              começar simples, validar com clientes e crescer com qualidade.
+            </p>
+          </div>
+
+          <div class="about__box">
+            <h3>Fase atual</h3>
+            <ul class="list">
+              <li>✅ Salgados: enroladinhos de salsicha</li>
+              <li>✅ Bebidas: refrigerantes</li>
+              <li>✅ Combos com desconto</li>
+              <li>⏳ Em breve: bolos de pote</li>
+            </ul>
+          </div>
+
+          <div class="about__box about__box--cta">
+            <h3>Quer pedir ou tirar dúvidas?</h3>
+            <p class="muted">Clique no botão e mande a mensagem pronta.</p>
+            <button class="btn" onclick="openOrder('Olá! Quero falar com o FormandoSabores 😊')">Falar agora</button>
+            <p class="tiny muted">*Quando vocês definirem o WhatsApp, é só atualizar 1 linha no código.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contato" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2>Contato</h2>
+          <p class="muted">Urupês-SP • Entregas a combinar</p>
+        </div>
+
+        <div class="contact">
+          <div class="contact__card">
+            <h3>WhatsApp</h3>
+            <p class="muted">Ainda não definido (placeholder no site).</p>
+            <button class="btn btn--small" onclick="openOrder('Olá! Quero fazer um pedido no FormandoSabores 😊')">
+              Enviar mensagem
+            </button>
+          </div>
+
+          <div class="contact__card">
+            <h3>Instagram</h3>
+            <p class="muted">Coloque o @ quando criarem.</p>
+            <a class="btn btn--small btn--ghost" href="#" onclick="return false;">@formandosabores</a>
+          </div>
+
+          <div class="contact__card">
+            <h3>Entrega</h3>
+            <p class="muted">A combinar (local e horário).</p>
+            <button class="btn btn--small btn--ghost" onclick="openOrder('Quero combinar entrega (local/horário). Meu endereço é: __')">
+              Combinar entrega
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <div class="brand brand--footer">
+          <div class="brand__logo">FS</div>
+          <div class="brand__text">
+            <strong>FormandoSabores</strong>
+            <span class="muted">Sabor caseiro. Prático. Do jeitinho que você gosta.</span>
+          </div>
+        </div>
+        <p class="tiny muted">
+          Projeto TCC • Ensino Médio Técnico • 2026
+        </p>
+      </div>
+
+      <div>
+        <h4>Menu</h4>
+        <ul class="footer__links">
+          <li><a href="#categorias">Categorias</a></li>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#combos">Combos</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Informações</h4>
+        <ul class="footer__links">
+          <li><a href="#" onclick="return false;">Formas de pagamento (definir)</a></li>
+          <li><a href="#" onclick="return false;">Política de entrega (definir)</a></li>
+          <li><a href="#" onclick="return false;">Troca e devolução (definir)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container footer__bottom__inner">
+        <span class="tiny muted">© 2026 FormandoSabores. Todos os direitos reservados.</span>
+        <a class="tiny muted" href="#inicio">Voltar ao topo ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ✅ Troque para o número real quando vocês definirem (somente dígitos com DDI 55)
+    // Exemplo: 5517999999999
+    const WHATSAPP_NUMBER = ""; // <- coloque aqui depois
+
+    function openOrder(text) {
+      const msg = encodeURIComponent(text);
+
+      if (!WHATSAPP_NUMBER) {
+        alert("WhatsApp ainda não definido. Quando vocês tiverem o número, é só colocar em WHATSAPP_NUMBER no final do index.html.");
+        return;
+      }
+
+      const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + msg;
+      window.open(url, "_blank");
+    }
+  </script>
 </body>
 </html>
