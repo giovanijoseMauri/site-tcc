@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FormandoSabores</title>
-  <meta name="description" content="FormandoSabores — salgadinhos caseiros, práticos e com combos com desconto. Urupês-SP." />
+  <meta name="description" content="FormandoSabores — salgados caseiros, práticos e combos com desconto. Urupês-SP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -18,13 +19,16 @@
   </div>
 
   <!-- Header -->
-  <header class="header">
+  <header class="header" id="topo">
     <div class="container header__inner">
       <a class="brand" href="#inicio" aria-label="Ir para o início">
-        <div class="brand__logo">FS</div>
+        <div class="brand__logoWrap" aria-hidden="true">
+          <img class="brand__logoImg" src="assets/logo-formandosabores.png" alt="" />
+        </div>
+
         <div class="brand__text">
           <strong>FormandoSabores</strong>
-          <span class="muted">Sabor caseiro. Prático. Do jeitinho que você gosta.</span>
+          <span class="muted">Salgados & bolos • sabor caseiro e prático</span>
         </div>
       </a>
 
@@ -35,6 +39,23 @@
         <a href="#sobre">Sobre</a>
         <a href="#contato" class="btn btn--small">Contato</a>
       </nav>
+
+      <!-- Mobile button -->
+      <button class="iconBtn" id="openMenu" aria-label="Abrir menu" aria-controls="mobileMenu" aria-expanded="false">
+        ☰
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobileMenu" id="mobileMenu" hidden>
+      <div class="mobileMenu__inner container">
+        <a href="#categorias" class="mobileLink">Categorias</a>
+        <a href="#produtos" class="mobileLink">Produtos</a>
+        <a href="#combos" class="mobileLink">Combos</a>
+        <a href="#sobre" class="mobileLink">Sobre</a>
+        <a href="#contato" class="mobileLink">Contato</a>
+        <button class="btn btn--ghost" id="closeMenu">Fechar</button>
+      </div>
     </div>
   </header>
 
@@ -46,12 +67,12 @@
           <p class="pill">✨ Projeto de TCC • Ensino Médio Técnico</p>
           <h1>Salgadinhos caseiros e combos com desconto em Urupês-SP</h1>
           <p class="hero__subtitle">
-            Começamos com <strong>enroladinhos de salsicha</strong> e <strong>refrigerantes</strong>.
+            Começo enxuto e bem feito: <strong>enroladinhos</strong> + <strong>refrigerantes</strong>.
             Em breve: <strong>bolos de pote</strong>.
           </p>
 
           <div class="hero__actions">
-            <button class="btn" onclick="openOrder('Olá! Quero fazer um pedido no FormandoSabores 😊')">
+            <button class="btn" data-open-order data-product="Pedido" data-type="geral">
               Pedir agora
             </button>
             <a class="btn btn--ghost" href="#produtos">Ver produtos</a>
@@ -82,40 +103,40 @@
           </div>
         </div>
 
-        <div class="hero__card" aria-label="Destaque de promoções">
+        <div class="hero__card" aria-label="Destaque de combos">
           <div class="hero__card__header">
             <h2>Combos com desconto</h2>
-            <p class="muted">Refri + salgado com valor melhor 💙</p>
+            <p class="muted">Refri + salgado com valor melhor 😋</p>
           </div>
 
           <div class="mini-grid">
             <div class="mini">
               <div class="mini__title">Combo 1</div>
-              <div class="mini__desc">Enroladinho + Refri</div>
+              <div class="mini__desc">1 Enroladinho + 1 Refri</div>
               <div class="mini__cta">
-                <button class="btn btn--small" onclick="openOrder('Quero o Combo 1: Enroladinho + Refri.')">Pedir</button>
+                <button class="btn btn--small" data-open-order data-product="Combo 1" data-type="combo">Pedir</button>
               </div>
             </div>
 
             <div class="mini">
               <div class="mini__title">Combo 2</div>
-              <div class="mini__desc">2 Enroladinhos + Refri</div>
+              <div class="mini__desc">2 Enroladinhos + 1 Refri</div>
               <div class="mini__cta">
-                <button class="btn btn--small" onclick="openOrder('Quero o Combo 2: 2 Enroladinhos + Refri.')">Pedir</button>
+                <button class="btn btn--small" data-open-order data-product="Combo 2" data-type="combo">Pedir</button>
               </div>
             </div>
 
             <div class="mini">
               <div class="mini__title">Combo 3</div>
-              <div class="mini__desc">3 Enroladinhos + Refri</div>
+              <div class="mini__desc">3 Enroladinhos + 1 Refri</div>
               <div class="mini__cta">
-                <button class="btn btn--small" onclick="openOrder('Quero o Combo 3: 3 Enroladinhos + Refri.')">Pedir</button>
+                <button class="btn btn--small" data-open-order data-product="Combo 3" data-type="combo">Pedir</button>
               </div>
             </div>
 
             <div class="mini mini--note">
               <div class="mini__desc">
-                💡 Vocês podem definir preços depois. Por enquanto, a gente deixa “sob consulta”.
+                💡 Preços podem ficar “sob consulta” até vocês definirem o cardápio final.
               </div>
             </div>
           </div>
@@ -137,18 +158,18 @@
           <div class="highlight__icon">🕒</div>
           <div>
             <h3>Entrega a combinar</h3>
-            <p class="muted">A gente combina horário e local com você.</p>
+            <p class="muted">Horário e local combinados no pedido.</p>
           </div>
         </div>
         <div class="highlight">
-          <div class="highlight__icon">🔒</div>
+          <div class="highlight__icon">🧾</div>
           <div>
-            <h3>Pedido simples</h3>
-            <p class="muted">Um clique e você já manda a mensagem.</p>
+            <h3>Pedido organizado</h3>
+            <p class="muted">Mensagem pronta, com quantidade e observações.</p>
           </div>
         </div>
         <div class="highlight">
-          <div class="highlight__icon">💙</div>
+          <div class="highlight__icon">💛</div>
           <div>
             <h3>Feito com carinho</h3>
             <p class="muted">Projeto real, com atendimento humano.</p>
@@ -162,7 +183,7 @@
       <div class="container">
         <div class="section__head">
           <h2>Categorias</h2>
-          <p class="muted">Começo enxuto e bem feito — depois a gente expande.</p>
+          <p class="muted">Começo enxuto e bem feito — depois vocês expandem.</p>
         </div>
 
         <div class="cards">
@@ -180,7 +201,7 @@
             <a href="#produtos" class="card__link">Ver opções →</a>
           </div>
 
-          <div class="card">
+          <div class="card card--emphasis">
             <div class="card__badge">Destaque</div>
             <h3>Combos</h3>
             <p class="muted">Refri + salgado com desconto.</p>
@@ -190,7 +211,7 @@
           <div class="card card--soft">
             <div class="card__badge">Em breve</div>
             <h3>Bolos de pote</h3>
-            <p class="muted">Entrando no cardápio nas próximas etapas do TCC.</p>
+            <p class="muted">Próxima etapa do projeto.</p>
             <a href="#sobre" class="card__link">Saiba mais →</a>
           </div>
         </div>
@@ -202,62 +223,54 @@
       <div class="container">
         <div class="section__head">
           <h2>Vitrine de produtos</h2>
-          <p class="muted">Preços podem ficar “sob consulta” enquanto vocês definem.</p>
+          <p class="muted">Pedido por WhatsApp com mensagem pronta.</p>
         </div>
 
         <div class="products">
           <article class="product">
-            <div class="product__img" aria-hidden="true">
-              <span>🥐</span>
-            </div>
+            <div class="product__img" aria-hidden="true"><span>🥐</span></div>
             <div class="product__body">
               <h3>Enroladinho de salsicha</h3>
               <p class="muted">Caseiro, prático e perfeito para um lanche rápido.</p>
               <div class="product__footer">
                 <span class="price">Sob consulta</span>
-                <button class="btn btn--small" onclick="openOrder('Quero Enroladinho de salsicha. Quantidade: __')">Pedir</button>
+                <button class="btn btn--small" data-open-order data-product="Enroladinho de salsicha" data-type="produto">Pedir</button>
               </div>
             </div>
           </article>
 
           <article class="product">
-            <div class="product__img" aria-hidden="true">
-              <span>🥤</span>
-            </div>
+            <div class="product__img" aria-hidden="true"><span>🥤</span></div>
             <div class="product__body">
               <h3>Refrigerantes</h3>
               <p class="muted">Opções variadas (lata/garrafa) — confirme no pedido.</p>
               <div class="product__footer">
                 <span class="price">Sob consulta</span>
-                <button class="btn btn--small" onclick="openOrder('Quero Refrigerante. Tipo/tamanho: __')">Pedir</button>
+                <button class="btn btn--small" data-open-order data-product="Refrigerante" data-type="produto">Pedir</button>
               </div>
             </div>
           </article>
 
           <article class="product">
-            <div class="product__img" aria-hidden="true">
-              <span>🍱</span>
-            </div>
+            <div class="product__img" aria-hidden="true"><span>🍱</span></div>
             <div class="product__body">
               <h3>Combo Refri + Salgado</h3>
               <p class="muted">Mais barato do que comprar separado.</p>
               <div class="product__footer">
                 <span class="price">Com desconto</span>
-                <button class="btn btn--small" onclick="openOrder('Quero Combo Refri + Salgado. Combo: 1/2/3')">Pedir</button>
+                <button class="btn btn--small" data-open-order data-product="Combo (escolher 1/2/3)" data-type="combo">Pedir</button>
               </div>
             </div>
           </article>
 
           <article class="product product--soon">
-            <div class="product__img" aria-hidden="true">
-              <span>🍰</span>
-            </div>
+            <div class="product__img" aria-hidden="true"><span>🍰</span></div>
             <div class="product__body">
               <h3>Bolos de pote (em breve)</h3>
-              <p class="muted">Próxima etapa do projeto — sabores e preços serão definidos.</p>
+              <p class="muted">Sabores e preços serão definidos.</p>
               <div class="product__footer">
                 <span class="price">Em desenvolvimento</span>
-                <button class="btn btn--small btn--ghost" onclick="openOrder('Quero entrar na lista de avisos dos Bolos de Pote 😊')">Quero aviso</button>
+                <button class="btn btn--small btn--ghost" data-open-order data-product="Lista de avisos — Bolos de pote" data-type="aviso">Quero aviso</button>
               </div>
             </div>
           </article>
@@ -270,7 +283,7 @@
       <div class="container">
         <div class="section__head">
           <h2>Combos com desconto</h2>
-          <p class="muted">Escolha seu combo e mande a mensagem pronta.</p>
+          <p class="muted">Escolha o combo e finalize por WhatsApp.</p>
         </div>
 
         <div class="combo-grid">
@@ -279,7 +292,7 @@
             <p class="muted">1 Enroladinho + 1 Refrigerante</p>
             <div class="combo__footer">
               <span class="price">Desconto</span>
-              <button class="btn btn--small" onclick="openOrder('Combo 1: 1 Enroladinho + 1 Refri. Entrega a combinar.')">Pedir</button>
+              <button class="btn btn--small" data-open-order data-product="Combo 1" data-type="combo">Pedir</button>
             </div>
           </div>
 
@@ -288,7 +301,7 @@
             <p class="muted">2 Enroladinhos + 1 Refrigerante</p>
             <div class="combo__footer">
               <span class="price">Desconto maior</span>
-              <button class="btn btn--small" onclick="openOrder('Combo 2: 2 Enroladinhos + 1 Refri. Entrega a combinar.')">Pedir</button>
+              <button class="btn btn--small" data-open-order data-product="Combo 2" data-type="combo">Pedir</button>
             </div>
           </div>
 
@@ -297,7 +310,7 @@
             <p class="muted">3 Enroladinhos + 1 Refrigerante</p>
             <div class="combo__footer">
               <span class="price">Melhor custo</span>
-              <button class="btn btn--small" onclick="openOrder('Combo 3: 3 Enroladinhos + 1 Refri. Entrega a combinar.')">Pedir</button>
+              <button class="btn btn--small" data-open-order data-product="Combo 3" data-type="combo">Pedir</button>
             </div>
           </div>
         </div>
@@ -316,8 +329,8 @@
           <div class="about__box">
             <h3>Nossa ideia</h3>
             <p>
-              O FormandoSabores nasce como um projeto escolar, mas com mentalidade de empresa:
-              começar simples, validar com clientes e crescer com qualidade.
+              O FormandoSabores começa como projeto escolar, mas com mentalidade de empresa:
+              testar com clientes, melhorar rápido e crescer com qualidade.
             </p>
           </div>
 
@@ -333,9 +346,9 @@
 
           <div class="about__box about__box--cta">
             <h3>Quer pedir ou tirar dúvidas?</h3>
-            <p class="muted">Clique no botão e mande a mensagem pronta.</p>
-            <button class="btn" onclick="openOrder('Olá! Quero falar com o FormandoSabores 😊')">Falar agora</button>
-            <p class="tiny muted">*Quando vocês definirem o WhatsApp, é só atualizar 1 linha no código.</p>
+            <p class="muted">Clique e mande a mensagem pronta (com dados do pedido).</p>
+            <button class="btn" data-open-order data-product="Atendimento" data-type="geral">Falar agora</button>
+            <p class="tiny muted">*Quando vocês definirem o WhatsApp, é só atualizar 1 linha no script.js.</p>
           </div>
         </div>
       </div>
@@ -352,22 +365,22 @@
         <div class="contact">
           <div class="contact__card">
             <h3>WhatsApp</h3>
-            <p class="muted">Ainda não definido (placeholder no site).</p>
-            <button class="btn btn--small" onclick="openOrder('Olá! Quero fazer um pedido no FormandoSabores 😊')">
+            <p class="muted">Finalize pedidos por mensagem.</p>
+            <button class="btn btn--small" data-open-order data-product="Pedido" data-type="geral">
               Enviar mensagem
             </button>
           </div>
 
           <div class="contact__card">
             <h3>Instagram</h3>
-            <p class="muted">Coloque o @ quando criarem.</p>
+            <p class="muted">Atualize o @ quando criarem.</p>
             <a class="btn btn--small btn--ghost" href="#" onclick="return false;">@formandosabores</a>
           </div>
 
           <div class="contact__card">
             <h3>Entrega</h3>
             <p class="muted">A combinar (local e horário).</p>
-            <button class="btn btn--small btn--ghost" onclick="openOrder('Quero combinar entrega (local/horário). Meu endereço é: __')">
+            <button class="btn btn--small btn--ghost" data-open-order data-product="Combinar entrega" data-type="entrega">
               Combinar entrega
             </button>
           </div>
@@ -381,15 +394,15 @@
     <div class="container footer__grid">
       <div>
         <div class="brand brand--footer">
-          <div class="brand__logo">FS</div>
+          <div class="brand__logoWrap" aria-hidden="true">
+            <img class="brand__logoImg" src="assets/logo-formandosabores.png" alt="" />
+          </div>
           <div class="brand__text">
             <strong>FormandoSabores</strong>
-            <span class="muted">Sabor caseiro. Prático. Do jeitinho que você gosta.</span>
+            <span class="muted">Salgados & bolos • sabor caseiro e prático</span>
           </div>
         </div>
-        <p class="tiny muted">
-          Projeto TCC • Ensino Médio Técnico • 2026
-        </p>
+        <p class="tiny muted">Projeto TCC • Ensino Médio Técnico • 2026</p>
       </div>
 
       <div>
@@ -416,27 +429,63 @@
     <div class="footer__bottom">
       <div class="container footer__bottom__inner">
         <span class="tiny muted">© 2026 FormandoSabores. Todos os direitos reservados.</span>
-        <a class="tiny muted" href="#inicio">Voltar ao topo ↑</a>
+        <a class="tiny muted" href="#topo">Voltar ao topo ↑</a>
       </div>
     </div>
   </footer>
 
-  <script>
-    // ✅ Troque para o número real quando vocês definirem (somente dígitos com DDI 55)
-    // Exemplo: 5517999999999
-    const WHATSAPP_NUMBER = ""; // <- coloque aqui depois
+  <!-- Floating WhatsApp -->
+  <button class="waFloat" id="waFloat" aria-label="Pedir no WhatsApp">
+    💬 Pedir
+  </button>
 
-    function openOrder(text) {
-      const msg = encodeURIComponent(text);
+  <!-- Order Modal -->
+  <div class="modal" id="orderModal" hidden>
+    <div class="modal__overlay" data-close-modal></div>
+    <div class="modal__card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__head">
+        <h3 id="modalTitle">Finalizar pedido</h3>
+        <button class="iconBtn" data-close-modal aria-label="Fechar">✕</button>
+      </div>
 
-      if (!WHATSAPP_NUMBER) {
-        alert("WhatsApp ainda não definido. Quando vocês tiverem o número, é só colocar em WHATSAPP_NUMBER no final do index.html.");
-        return;
-      }
+      <div class="modal__body">
+        <div class="field">
+          <label>Item</label>
+          <input id="orderItem" type="text" readonly />
+        </div>
 
-      const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + msg;
-      window.open(url, "_blank");
-    }
-  </script>
+        <div class="grid2">
+          <div class="field">
+            <label>Quantidade</label>
+            <input id="orderQty" type="number" min="1" value="1" />
+          </div>
+          <div class="field">
+            <label>Entrega</label>
+            <select id="orderDelivery">
+              <option value="A combinar">A combinar</option>
+              <option value="Retirar">Retirar</option>
+              <option value="Entregar">Entregar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Observações</label>
+          <textarea id="orderObs" rows="3" placeholder="Ex.: refri gelado, sem pimenta, ponto de referência, etc."></textarea>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--ghost" data-close-modal>Cancelar</button>
+          <button class="btn" id="sendWhatsApp">Enviar no WhatsApp</button>
+        </div>
+
+        <p class="tiny muted" style="margin-top:10px">
+          *O WhatsApp ainda pode estar “em definição”. Quando tiverem o número, o botão abre direto.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
