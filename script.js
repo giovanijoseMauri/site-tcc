@@ -1,162 +1,181 @@
-// ===== FormandoSabores — Modal de Pedido (BLINDADO) =====
+// ===== FormandoSabores — script.js (ULTRA BLINDADO / COMPATÍVEL COM SEU HTML) =====
 
-// ✅ coloque o número real quando tiver (somente dígitos com DDI 55)
+// ✅ Coloque o número real quando tiver (somente dígitos com DDI 55)
 // Exemplo: 5517999999999
 const WHATSAPP_NUMBER = ""; // <- edite depois
 
-// helpers
+// ---------- helpers ----------
 const qs = (sel, root = document) => root.querySelector(sel);
-const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
+const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const clean = (v) => String(v ?? "").replace(/\s+/g, " ").trim();
 const enc = (s) => encodeURIComponent(String(s ?? ""));
 
-// Estado
-let lastFocusEl = null;
+// ---------- MENU MOBILE ----------
+(function initMobileMenu() {
+  const openBtn = qs("#openMenu");
+  const closeBtn = qs("#closeMenu");
+  const menu = qs("#mobileMenu");
 
-// Cria modal (1x)
-function ensureModal() {
-  if (qs("#fsModal")) return;
+  if (!openBtn || !menu) return;
 
-  const modalHTML = `
-  <div id="fsModal" class="fs-modal" aria-hidden="true">
-    <div class="fs-backdrop" data-close="1"></div>
+  const setExpanded = (val) => {
+    try { openBtn.setAttribute("aria-expanded", val ? "true" : "false"); } catch {}
+  };
 
-    <div class="fs-dialog" role="dialog" aria-modal="true" aria-labelledby="fsTitle">
-      <div class="fs-dialog__head">
-        <h3 id="fsTitle">Finalizar pedido</h3>
-      </div>
+  const openMenu = () => {
+    menu.hidden = false;
+    setExpanded(true);
+    // foca no primeiro link do menu
+    setTimeout(() => {
+      const firstLink = qs("a, button", menu);
+      firstLink?.focus?.();
+    }, 0);
+  };
 
-      <form class="fs-dialog__body" id="fsForm">
-        <label class="fs-field">
-          <span>Item</span>
-          <input id="fsItem" type="text" placeholder="Ex.: Combo 2 / Enroladinho / Refrigerante" />
-        </label>
+  const closeMenu = () => {
+    menu.hidden = true;
+    setExpanded(false);
+    openBtn?.focus?.();
+  };
 
-        <div class="fs-row">
-          <label class="fs-field">
-            <span>Quantidade</span>
-            <input id="fsQtd" type="number" min="1" value="1" />
-          </label>
-
-          <label class="fs-field">
-            <span>Entrega</span>
-            <select id="fsEntrega">
-              <option value="A combinar" selected>A combinar</option>
-              <option value="Retirar">Retirar</option>
-              <option value="Entregar">Entregar</option>
-            </select>
-          </label>
-        </div>
-
-        <label class="fs-field">
-          <span>Observações</span>
-          <textarea id="fsObs" rows="3" placeholder="Ex.: refri gelado, ponto de referência, etc."></textarea>
-        </label>
-
-        <div class="fs-actions">
-          <button type="button" class="btn btn--ghost" id="fsCancel">Cancelar</button>
-          <button type="button" class="btn" id="fsSend">Enviar no WhatsApp</button>
-        </div>
-
-        <p class="fs-hint muted tiny">
-          *O WhatsApp ainda pode estar “em definição”. Quando tiverem o número, o botão abre direto.
-        </p>
-      </form>
-    </div>
-  </div>`;
-
-  document.body.insertAdjacentHTML("beforeend", modalHTML);
-
-  // Eventos de fechar
-  const modal = qs("#fsModal");
-  const cancelBtn = qs("#fsCancel");
-  const backdrop = qs(".fs-backdrop", modal);
-
-  cancelBtn.addEventListener("click", (e) => {
+  openBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    closeModal();
+    if (menu.hidden) openMenu();
+    else closeMenu();
   });
 
-  backdrop.addEventListener("click", (e) => {
+  closeBtn?.addEventListener("click", (e) => {
     e.preventDefault();
-    closeModal();
+    closeMenu();
   });
 
-  // ESC fecha
+  // fechar menu ao clicar em um link
+  qsa("a", menu).forEach((a) => {
+    a.addEventListener("click", () => closeMenu());
+  });
+
+  // ESC fecha menu
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isModalOpen()) closeModal();
+    if (e.key === "Escape" && menu && menu.hidden === false) closeMenu();
   });
+})();
 
-  // Enviar
-  qs("#fsSend").addEventListener("click", (e) => {
-    e.preventDefault();
-    sendWhatsApp();
-  });
-}
+// ---------- MODAL PEDIDO (usa #orderModal do HTML) ----------
+(function initOrderModal() {
+  const modal = qs("#orderModal");
+  if (!modal) return; // se não existir, não quebra nada
 
-function isModalOpen() {
-  const modal = qs("#fsModal");
-  return modal && modal.getAttribute("aria-hidden") === "false";
-}
+  const itemEl = qs("#orderItem", modal);
+  const qtyEl = qs("#orderQty", modal);
+  const deliveryEl = qs("#orderDelivery", modal);
+  const obsEl = qs("#orderObs", modal);
+  const sendBtn = qs("#sendWhatsApp", modal);
 
-function openModal({ item = "" } = {}) {
-  ensureModal();
+  const closeTargets = () => qsa("[data-close-modal]", modal);
 
-  lastFocusEl = document.activeElement;
+  let lastFocusEl = null;
 
-  const modal = qs("#fsModal");
-  modal.setAttribute("aria-hidden", "false");
-  modal.classList.add("is-open");
-  document.body.classList.add("fs-lock");
+  const isOpen = () => modal.hidden === false;
 
-  // preencher
-  qs("#fsItem").value = item || "";
-  qs("#fsQtd").value = 1;
-  qs("#fsEntrega").value = "A combinar";
-  qs("#fsObs").value = "";
+  const open = (opts = {}) => {
+    const item = clean(opts.item || opts.product || "Pedido");
 
-  // foco
-  setTimeout(() => qs("#fsItem")?.focus(), 50);
-}
+    lastFocusEl = document.activeElement;
 
-function closeModal() {
-  const modal = qs("#fsModal");
-  if (!modal) return;
+    modal.hidden = false;
+    modal.classList.add("is-open");
+    document.body.classList.add("fs-lock"); // se tiver CSS pra travar scroll
 
-  modal.setAttribute("aria-hidden", "true");
-  modal.classList.remove("is-open");
-  document.body.classList.remove("fs-lock");
+    if (itemEl) itemEl.value = item;
+    if (qtyEl) qtyEl.value = 1;
+    if (deliveryEl) deliveryEl.value = "A combinar";
+    if (obsEl) obsEl.value = "";
 
-  // devolver foco
-  try { lastFocusEl?.focus?.(); } catch {}
-}
+    setTimeout(() => itemEl?.focus?.(), 0);
+  };
 
-function sendWhatsApp() {
-  if (!WHATSAPP_NUMBER) {
-    alert("WhatsApp ainda não definido. Quando vocês tiverem o número, coloque em WHATSAPP_NUMBER no script.js.");
-    return;
-  }
+  const close = () => {
+    modal.hidden = true;
+    modal.classList.remove("is-open");
+    document.body.classList.remove("fs-lock");
 
-  const item = qs("#fsItem").value.trim() || "Pedido";
-  const qtd = qs("#fsQtd").value || "1";
-  const entrega = qs("#fsEntrega").value || "A combinar";
-  const obs = qs("#fsObs").value.trim();
+    try { lastFocusEl?.focus?.(); } catch {}
+  };
 
-  const text =
-`Olá! Quero fazer um pedido no FormandoSabores 😊
+  const buildMessage = () => {
+    const item = clean(itemEl?.value) || "Pedido";
+    const qtd = clean(qtyEl?.value) || "1";
+    const entrega = clean(deliveryEl?.value) || "A combinar";
+    const obs = clean(obsEl?.value);
+
+    return `Olá! Quero fazer um pedido no FormandoSabores 😊
 Item: ${item}
 Quantidade: ${qtd}
 Entrega: ${entrega}${obs ? `\nObs.: ${obs}` : ""}`;
+  };
 
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${enc(text)}`;
-  window.open(url, "_blank");
+  const sendWhatsApp = () => {
+    if (!WHATSAPP_NUMBER) {
+      alert("WhatsApp ainda não definido. Quando vocês tiverem o número, coloque em WHATSAPP_NUMBER no script.js.");
+      return;
+    }
 
-  // fecha depois de enviar
-  closeModal();
-}
+    const text = buildMessage();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${enc(text)}`;
+    window.open(url, "_blank");
+    close();
+  };
 
-// ===== Integração com botões do site =====
-// Se você já chama openOrder('texto...') no HTML, mantemos compatível:
-window.openOrder = function (text) {
-  // transforma o texto em item “resumido”
-  openModal({ item: String(text || "").replace(/\s+/g, " ").trim() });
-};
+  // fechar: overlay, botão X, cancelar etc.
+  closeTargets().forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      close();
+    });
+  });
+
+  // ESC fecha modal
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen()) close();
+  });
+
+  // Enviar
+  sendBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    sendWhatsApp();
+  });
+
+  // ---------- BOTÕES DO SITE ----------
+  // Qualquer elemento com data-open-order abre o modal
+  const bindOrderButtons = () => {
+    const btns = qsa("[data-open-order]");
+    btns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const product = clean(btn.getAttribute("data-product") || btn.dataset.product || "");
+        const type = clean(btn.getAttribute("data-type") || btn.dataset.type || "");
+        const item = type ? `${product} (${type})` : product;
+
+        open({ item: item || "Pedido" });
+      });
+    });
+  };
+
+  bindOrderButtons();
+
+  // Botão flutuante do WhatsApp abre o modal também
+  const waFloat = qs("#waFloat");
+  waFloat?.addEventListener("click", (e) => {
+    e.preventDefault();
+    open({ item: "Pedido" });
+  });
+
+  // Compatibilidade: se alguém chamar openOrder('texto') no HTML
+  window.openOrder = function (text) {
+    open({ item: clean(text) || "Pedido" });
+  };
+
+  // Expor close se quiser usar manualmente
+  window.closeOrderModal = close;
+})();
