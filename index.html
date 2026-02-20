@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FormandoSabores</title>
   <meta name="description" content="FormandoSabores — salgados caseiros, práticos e combos com desconto. Urupês-SP." />
+
+  <!-- Google Fonts (seguro mesmo se não usar ainda) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -23,7 +27,7 @@
     <div class="container header__inner">
       <a class="brand" href="#inicio" aria-label="Ir para o início">
         <div class="brand__logoWrap" aria-hidden="true">
-          <img class="brand__logoImg" src="assets/logo-formandosabores.jpeg" alt="" />
+          <img class="brand__logoImg" src="assets/logo-formandosabores.jpeg" alt="Logo FormandoSabores" />
         </div>
 
         <div class="brand__text">
@@ -395,7 +399,8 @@
       <div>
         <div class="brand brand--footer">
           <div class="brand__logoWrap" aria-hidden="true">
-            <img class="brand__logoImg" src="assets/logo-formandosabores.png" alt="" />
+            <!-- ✅ PADRONIZADO PRA .jpeg (oficial) -->
+            <img class="brand__logoImg" src="assets/logo-formandosabores.jpeg" alt="Logo FormandoSabores" />
           </div>
           <div class="brand__text">
             <strong>FormandoSabores</strong>
@@ -474,10 +479,12 @@
           <textarea id="orderObs" rows="3" placeholder="Ex.: refri gelado, sem pimenta, ponto de referência, etc."></textarea>
         </div>
 
-        <div class="modal_actions">
-  <button type="button" class="btn btn-ghost" data-close-modal>Cancelar</button>
-  <button type="button" class="btn" id="sendWhatsApp">Enviar no WhatsApp</button>
-</div>
+        <!-- ✅ modal__actions (consistência) + btn--ghost (estilo certo) -->
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close-modal>Cancelar</button>
+          <button type="button" class="btn" id="sendWhatsApp">Enviar no WhatsApp</button>
+        </div>
+
         <p class="tiny muted" style="margin-top:10px">
           *O WhatsApp ainda pode estar “em definição”. Quando tiverem o número, o botão abre direto.
         </p>
@@ -485,8 +492,7 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- ✅ defer evita null no getElementById -->
+  <script src="script.js" defer></script>
 </body>
 </html>
-
-
