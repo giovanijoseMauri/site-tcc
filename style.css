@@ -509,6 +509,10 @@ p{ margin: 0 0 10px; line-height: 1.6; }
 
 /* Modal */
 .modal{ position: fixed; inset: 0; z-index: 60; display:grid; place-items:center; }
+
+/* ✅ blindagem: garante que hidden sempre esconda */
+.modal[hidden]{ display: none !important; }
+
 .modal__overlay{ position:absolute; inset:0; background: rgba(2,6,23,0.55); }
 .modal__card{
   position: relative;
@@ -544,6 +548,9 @@ input:focus, select:focus, textarea:focus{
 .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .modal__actions{ display:flex; gap: 10px; justify-content: flex-end; }
 
+/* ✅ lock de scroll quando modal abre */
+.fs-lock { overflow: hidden; }
+
 /* Responsivo */
 @media (max-width: 980px){
   .hero__grid{ grid-template-columns: 1fr; }
@@ -563,79 +570,3 @@ input:focus, select:focus, textarea:focus{
   .section__head{ flex-direction: column; align-items: flex-start; }
   .grid2{ grid-template-columns: 1fr; }
 }
-/* ===== Modal (pedido) ===== */
-.fs-lock { overflow: hidden; }
-
-.fs-modal{
-  position: fixed;
-  inset: 0;
-  display: none;
-  z-index: 9999;
-}
-
-.fs-modal.is-open{ display: block; }
-
-.fs-backdrop{
-  position: absolute;
-  inset: 0;
-  background: rgba(2, 6, 23, 0.55);
-}
-
-.fs-dialog{
-  position: relative;
-  width: min(560px, calc(100% - 28px));
-  margin: 8vh auto 0;
-  background: #fff;
-  border: 1px solid rgba(15,23,42,0.12);
-  border-radius: 18px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-  overflow: hidden;
-}
-
-.fs-dialog__head{
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(15,23,42,0.10);
-  background: linear-gradient(180deg, rgba(243,234,215,0.45), #fff);
-}
-
-.fs-dialog__body{ padding: 14px 16px; }
-
-.fs-field{ display: grid; gap: 6px; margin-bottom: 12px; }
-.fs-field span{ font-weight: 700; font-size: 13px; color: var(--ink); }
-
-.fs-field input,
-.fs-field select,
-.fs-field textarea{
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(15,23,42,0.14);
-  outline: none;
-}
-
-.fs-field input:focus,
-.fs-field select:focus,
-.fs-field textarea:focus{
-  border-color: rgba(31,79,215,0.35);
-  box-shadow: 0 0 0 4px rgba(31,79,215,0.10);
-}
-
-.fs-row{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.fs-actions{
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.fs-hint{ margin-top: 10px; }
-@media (max-width: 560px){
-  .fs-row{ grid-template-columns: 1fr; }
-}
-
-
