@@ -81,9 +81,9 @@ p{ margin: 0 0 10px; line-height: 1.6; }
   min-width: 260px;
 }
 .brand__logoWrap{
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
   background: #fff;
   border: 1px solid rgba(15,23,42,0.10);
   box-shadow: 0 10px 22px rgba(15,23,42,0.06);
@@ -105,7 +105,9 @@ p{ margin: 0 0 10px; line-height: 1.6; }
   letter-spacing: 0.2px;
 }
 .brand--footer .brand__logoWrap{
-  width: 44px; height: 44px; border-radius: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
 }
 
 /* Nav */
@@ -570,3 +572,4 @@ input:focus, select:focus, textarea:focus{
   .section__head{ flex-direction: column; align-items: flex-start; }
   .grid2{ grid-template-columns: 1fr; }
 }
+
